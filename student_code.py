@@ -18,6 +18,23 @@ class KnowledgeBase(object):
         return string
 
     def kb_assert(self, fact):
+        #first check if new item is a fact
+        #then check if fact is in base
+        #add fact to end of list s.append(list1)
+
+        #for the string
+        #if factq(this new fact) = true
+        #nest another if this fact if ____ in thislist then exit
+        #newfact.append(thelist)
+
+        if factq(fact.name):
+            if fact in self.facts:
+                return
+            else:
+                self.facts.append(fact)
+        else:
+            return
+
         """Assert a fact or rule into the KB
 
         Args:
@@ -26,6 +43,7 @@ class KnowledgeBase(object):
         print("Asserting {!r}".format(fact))
         
     def kb_ask(self, fact):
+
         """Ask if a fact is in the KB
 
         Args:
@@ -34,4 +52,25 @@ class KnowledgeBase(object):
         Returns:
             ListOfBindings|False - ListOfBindings if result found, False otherwise
         """
+        #if the fact is a fact and is in self.facts, return ListofBindings (from match) or return False if fact isn't in facts
+        #go through whole list even if binding is found
+
+        x = ListOfBindings()
+        #b = Bindings()
+
+        #if factq(fact.name):
+        for y in self.facts:
+            a = match(y.statement, fact.statement)
+            if a == False:
+                continue
+            else:
+                x.add_bindings(a, fact.statement)
+        return x
+
+
+       # else:
+           # return False
+        #else:
+         #   return
+
         print("Asking {!r}".format(fact))
